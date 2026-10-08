@@ -1,15 +1,27 @@
+import Vivus from 'vivus';
+
 const intro = document.querySelector('.intro');
 const hero = document.querySelector('.hero');
 const skip = document.querySelector('.skip-intro');
 const replay = document.querySelector('.replay');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const sessionKey = 'nurolanda-intro-seen';
+const sessionKey = 'nurolanda-intro-seen-v2';
 let finishTimer;
+let handwriting;
+let drawingFrame;
+
+function revealHero() {
+  document.documentElement.classList.add('is-revealing');
+  finishTimer = window.setTimeout(finishIntro, 2450);
+}
 
 function finishIntro() {
   clearTimeout(finishTimer);
-  document.documentElement.classList.remove('is-intro');
+  cancelAnimationFrame(drawingFrame);
+  handwriting?.stop().reset();
+  document.documentElement.classList.remove('is-intro', 'is-revealing');
   hero.inert = false;
+  if (document.activeElement === skip) replay.focus({ preventScroll: true });
   intro.setAttribute('aria-hidden', 'true');
   skip.tabIndex = -1;
   try { sessionStorage.setItem(sessionKey, 'yes'); } catch { /* Storage can be blocked in private browsing. */ }
@@ -24,7 +36,20 @@ function playIntro() {
   hero.inert = true;
   intro.setAttribute('aria-hidden', 'false');
   skip.tabIndex = 0;
-  finishTimer = window.setTimeout(finishIntro, 3900);
+  handwriting ??= new Vivus('handwriting', {
+    type: 'oneByOne', start: 'manual', duration: 280,
+    animTimingFunction: Vivus.LINEAR, pathTimingFunction: Vivus.LINEAR,
+  });
+  handwriting.reset();
+  // Drive Vivus by elapsed time so handwriting speed also holds on 120Hz displays.
+  const started = performance.now();
+  function draw(now) {
+    const progress = Math.min((now - started) / 2800, 1);
+    handwriting.setFrameProgress(progress);
+    if (progress < 1) drawingFrame = requestAnimationFrame(draw);
+    else revealHero();
+  }
+  drawingFrame = requestAnimationFrame(draw);
 }
 
 let seen = false;
@@ -33,7 +58,12 @@ if (!seen) playIntro();
 
 skip.addEventListener('click', () => { finishIntro(); replay.focus(); });
 replay.addEventListener('click', () => { playIntro(); if (!reducedMotion.matches) skip.focus({ preventScroll: true }); });
-reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) finishIntro(); });
+reducedMotion.addEventListener('change', () => {
+  if (!reducedMotion.matches) return;
+  const wasPlaying = document.documentElement.classList.contains('is-intro');
+  finishIntro();
+  if (wasPlaying) replay.focus({ preventScroll: true });
+});
 intro.addEventListener('animationend', (event) => {
   if (event.animationName === 'curtain-up') {
     hero.inert = false;

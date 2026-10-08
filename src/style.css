@@ -44,28 +44,41 @@ button:focus-visible, a:focus-visible { outline: 3px solid #d78700; outline-offs
 .intro { position: fixed; inset: 0; z-index: 10; display: none; place-items: center; background: var(--red); }
 .intro-signature { width: min(580px, 76vw); color: var(--yellow); }
 .intro-signature svg { display: block; width: 100%; overflow: visible; }
-.signature-letter { fill: currentColor; }
 .skip-intro { position: absolute; right: 5%; bottom: 32px; border: 0; color: #ffe1a0; background: transparent; padding: 12px; font-size: 12px; }
 .skip-intro span { margin-left: 20px; }
-.is-intro .intro { display: grid; animation: curtain-up .95s var(--ease-in-out) 2s both; }
-.is-intro .intro-signature { animation: signature-glow .8s ease-in-out 1.45s both; }
-.is-intro .signature-letter { stroke: currentColor; stroke-width: 1.2; stroke-dasharray: 1; stroke-dashoffset: 1; fill-opacity: 0; animation: write-letter .65s ease-out var(--letter-delay) both; }
-.is-intro .hero { animation: hero-up 1.1s var(--ease-out) 2s both; }
-.is-intro .header, .is-intro .hero-footer { animation: fade-in .7s ease-out 2.7s both; }
-.is-intro .text-placeholder { animation: fade-in .8s ease-out 2.45s both; }
-.is-intro .hero-cta { animation: copy-up .65s var(--ease-out) 2.65s both; }
-.is-intro .food-main { animation: food-main-in 1.15s var(--ease-in-out) 2.15s both; }
-.is-intro .food-left { animation: food-left-in 1s var(--ease-in-out) 2.65s both; }
-.is-intro .food-right { animation: food-right-in 1s var(--ease-in-out) 2.8s both; }
-@keyframes write-letter { 0% { stroke-dashoffset: 1; fill-opacity: 0; } 65% { fill-opacity: 0; } 100% { stroke-dashoffset: 0; fill-opacity: 1; } }
+.is-intro .intro { display: grid; }
+.is-revealing .intro { animation: curtain-up .95s var(--ease-in-out) .45s both; }
+.is-revealing .intro-signature { animation: signature-glow .8s ease-in-out both; }
+.is-revealing .hero { animation: hero-up 1.1s var(--ease-out) .45s both; }
+.is-revealing .header, .is-revealing .hero-footer { animation: fade-in .7s ease-out 1.15s both; }
+.is-revealing .text-placeholder { animation: fade-in .8s ease-out .9s both; }
+.is-revealing .hero-cta { animation: copy-up .65s var(--ease-out) 1.1s both; }
+.is-revealing .food-main { animation: food-main-in 1.35s linear .6s both; }
+.is-revealing .food-left { animation: food-left-in 1.2s linear 1.05s both; }
+.is-revealing .food-right { animation: food-right-in 1.2s linear 1.2s both; }
 @keyframes signature-glow { 0%, 100% { filter: drop-shadow(0 0 0 transparent); } 50% { filter: drop-shadow(0 0 8px #ffce0080) drop-shadow(0 0 24px #ffbc0040); } }
 @keyframes curtain-up { from { transform: translateY(0); } to { transform: translateY(-101%); } }
 @keyframes hero-up { from { transform: translateY(20vh); } to { transform: translateY(0); } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes copy-up { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes food-main-in { from { opacity: 0; transform: translate(-50%, 55vh) rotate(-15deg); } to { opacity: 1; transform: translate(-50%, 0) rotate(-8.5deg); } }
-@keyframes food-left-in { from { opacity: 0; transform: translateY(65vh) rotate(-6deg); } to { opacity: 1; transform: translateY(0) rotate(10deg); } }
-@keyframes food-right-in { from { opacity: 0; transform: translateY(65vh) rotate(22deg); } to { opacity: 1; transform: translateY(0) rotate(11deg); } }
+@keyframes food-main-in {
+  0% { opacity: 0; transform: translate(-50%, 60vh) rotate(-16deg); animation-timing-function: cubic-bezier(.14, .8, .24, 1); }
+  58% { opacity: 1; transform: translate(-50%, -30px) rotate(-7deg); animation-timing-function: cubic-bezier(.45, 0, .55, 1); }
+  82% { transform: translate(-50%, 7px) rotate(-9deg); animation-timing-function: var(--ease-out); }
+  100% { opacity: 1; transform: translate(-50%, 0) rotate(-8.5deg); }
+}
+@keyframes food-left-in {
+  0% { opacity: 0; transform: translateY(65vh) rotate(-6deg); animation-timing-function: cubic-bezier(.14, .8, .24, 1); }
+  58% { opacity: 1; transform: translateY(-18px) rotate(12deg); animation-timing-function: cubic-bezier(.45, 0, .55, 1); }
+  82% { transform: translateY(4px) rotate(9deg); animation-timing-function: var(--ease-out); }
+  100% { opacity: 1; transform: translateY(0) rotate(10deg); }
+}
+@keyframes food-right-in {
+  0% { opacity: 0; transform: translateY(65vh) rotate(22deg); animation-timing-function: cubic-bezier(.14, .8, .24, 1); }
+  58% { opacity: 1; transform: translateY(-18px) rotate(9deg); animation-timing-function: cubic-bezier(.45, 0, .55, 1); }
+  82% { transform: translateY(4px) rotate(12deg); animation-timing-function: var(--ease-out); }
+  100% { opacity: 1; transform: translateY(0) rotate(11deg); }
+}
 
 @media (max-width: 600px) {
   .hero { min-height: 680px; max-height: 1000px; }

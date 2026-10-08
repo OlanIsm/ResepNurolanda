@@ -138,7 +138,12 @@
       {
         "name": "ease-in-out",
         "value": "cubic-bezier(.65, 0, .25, 1)",
-        "purpose": "Curtain and food strip entrances."
+        "purpose": "Curtain transition."
+      },
+      {
+        "name": "food-arrival",
+        "value": "cubic-bezier(.14, .8, .24, 1)",
+        "purpose": "Fast rise, then a smooth overshoot and settling dip; 30px/7px main, 18px/4px sides."
       }
     ],
     "breakpoints": [
@@ -190,7 +195,7 @@
   "narrative": {
     "overview": "This document records the owner-approved intro and hero prototype, not a complete restaurant website. The visual direction pairs yellow script on dark red with a spacious cream hero. Gray copy and blue image placeholders intentionally remain visible.",
     "keyCharacteristics": [
-      "Two-line script signature with contour drawing, fill and a brief glow.",
+      "Connected Pacifico pen strokes animated by Vivus over 2.8 seconds: Resep before Nurolanda, followed by glow and curtain reveal.",
       "Centered copy and two compact calls to action.",
       "Three tilted, empty blue food strips, with delayed side entrances."
     ],

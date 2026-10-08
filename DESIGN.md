@@ -52,7 +52,7 @@ components:
 This document records the owner-approved intro and hero prototype, not a complete restaurant website. The visual direction pairs yellow script on dark red with a spacious cream hero. Gray copy and blue image placeholders intentionally remain visible.
 
 **Key Characteristics:**
-- Two-line script signature with contour drawing, fill and a brief glow.
+- Two-line connected pen-stroke signature: Resep finishes before Nurolanda, followed by a brief glow.
 - Centered copy and two compact calls to action.
 - Three tilted, empty blue food strips, with delayed side entrances.
 
@@ -62,7 +62,7 @@ Red anchors the intro, wordmark and primary action; yellow illuminates the signa
 
 ## Typography
 
-Locally hosted italic Lobster Two supplies the wordmark and headline. The intro uses letter contours derived from that font in an inline SVG. DM Sans supplies buttons, captions, controls and footer text. The placeholder headline uses the headline token; at widths up to 600px it becomes `clamp(48px, 12vw, 68px)`. Captions use small uppercase text with wide tracking.
+Locally hosted italic Lobster Two supplies the wordmark and headline. The intro uses Pacifico pen strokes from Vara in an inline SVG, connected and animated with Vivus without a fill reveal. DM Sans supplies buttons, captions, controls and footer text. The placeholder headline uses the headline token; at widths up to 600px it becomes `clamp(48px, 12vw, 68px)`. Captions use small uppercase text with wide tracking.
 
 ## Layout
 
@@ -80,8 +80,8 @@ Copy and food holders are rectangular. Buttons have subtly softened corners usin
 
 ## Components
 
-- **Intro:** fixed red curtain with centered yellow signature. Each letter draws its contour over 0.65 seconds and fills at the end. Glow starts at 1.45 seconds. The curtain begins sliding up at 2 seconds and takes 0.95 seconds.
-- **Hero entrance:** hero rises as the curtain departs. Main strip enters at 2.15 seconds; side strips enter at 2.65 and 2.8 seconds. Copy, actions, header and footer fade or rise into place.
+- **Intro:** fixed red curtain with centered yellow handwriting. Vivus draws connected pen strokes sequentially over 2.8 seconds, completing Resep before starting Nurolanda. Elapsed-time playback keeps the same speed on high-refresh displays. Glow starts on writing completion; the curtain begins sliding up 0.45 seconds later and takes 0.95 seconds.
+- **Hero entrance:** offsets are relative to writing completion. The hero rises at 0.45 seconds; main strip enters at 0.6 seconds over 1.35 seconds; side strips enter at 1.05 and 1.2 seconds over 1.2 seconds. Food accelerates upward, overshoots by 30px (main) or 18px (sides), dips by 7px or 4px, and settles. Copy, actions, header and footer fade or rise into place.
 - **Playback controls:** intro runs once per tab session when session storage is available. Skip and replay remain keyboard accessible. Reduced motion shows the settled hero and disables animation. The hero is inert while covered by the intro.
 - **Actions:** red “Lihat Menu” and gray “Pesan via WhatsApp” buttons show preview status messages. They do not open a menu or contact a business. Desktop buttons have a 52px minimum height. Hover changes fill and lifts the button; keyboard focus uses a 3px amber outline with a 6px offset.
 - **Placeholders:** gray headline holder and three blue food strips are approved prototype content. Decorative food strips are hidden from assistive technology.
